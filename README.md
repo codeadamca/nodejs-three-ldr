@@ -8,6 +8,8 @@ npx vite --host
 
 https://threejs.org/docs/#manual/en/introduction/Installation
 
+https://threejs.org/docs/#examples/en/loaders/LDrawLoader
+
 ---
 
 ## Project Stack
