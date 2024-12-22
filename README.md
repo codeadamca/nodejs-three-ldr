@@ -1,5 +1,8 @@
-# html-callada
-Displaying a Callada file on a HTML page.
+# THREE.js and LDraw Files
+
+This repos is a basic example of displaying an `.ldr` file in a web page. Follow these steps to get the example code working:
+
+1. Install THREE.js using the instructions from the [Installation](https://threejs.org/docs/index.html#manual/en/introduction/Installation) documentation:
 
 ```
 npm install --save three  
@@ -7,9 +10,12 @@ npm install --save-dev vite
 npx vite --host
 ```
 
-https://threejs.org/docs/#manual/en/introduction/Installation
+2. Convert your `.ldr` file crearted using [BrickLink Studio]() to a packed `.mp` file. Instrustion are available on my [nodejs-packing-mpd](https://github.com/codeadamca/nodejs-packing-mpd) repo. 
 
-https://threejs.org/docs/#examples/en/loaders/LDrawLoader
+3. Use the example for from the [LDrawLoader](https://threejs.org/docs/#examples/en/loaders/LDrawLoader) documentation.
+
+> [!NOTE]
+> This repo is a work in progress.
 
 ---
 
