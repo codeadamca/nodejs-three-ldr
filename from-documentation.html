@@ -1,0 +1,65 @@
+<!--
+
+This code is pieced together from the documentation:
+https://threejs.org/docs/#examples/en/loaders/LDrawLoader
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script type="module">
+
+        import * as THREE from 'three';
+
+        import { LDrawLoader } from 'three/addons/loaders/LDrawLoader.js';
+        import { LDrawUtils } from 'three/addons/utils/LDrawUtils.js';
+
+        // Instantiate a loader
+const loader = new LDrawLoader();
+
+// Optionally set library parts path
+// loader.setPartsLibraryPath( path to library );
+
+// Load a LDraw resource
+loader.load(
+    
+	// resource URL
+	'models/car.ldr_Packed.mpd',
+	// called when the resource is loaded
+	function ( group ) {
+
+        console.log('herre');
+
+		// Optionally, use LDrawUtils.mergeObject() from
+		// 'examples/jsm/utils/LDrawUtils.js' to merge all
+		// geometries by material (it gives better runtime
+		// performance, but building steps are lost)
+		// group = LDrawUtils.mergeObject( group );
+
+		scene.add( group );
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+    </script>
+
+</body>
+</html>
