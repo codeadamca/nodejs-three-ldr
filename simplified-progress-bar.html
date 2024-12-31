@@ -3,8 +3,8 @@
 This code is taken from:
 https://threejs.org/examples/#webgl_loader_ldraw
 
-It has been simpolified to only includes the code that is needed to display 
-the .ldr file.
+It has been simplified to only includes the code that is needed, the preloader, and 
+the screen resize event. 
 
 -->
 <!DOCTYPE html>
@@ -45,7 +45,8 @@ the .ldr file.
 			import { LDrawUtils } from 'three/addons/utils/LDrawUtils.js';
 			import { LDrawConditionalLineMaterial } from 'three/addons/materials/LDrawConditionalLineMaterial.js';
 
-			let container, camera, scene, renderer, controls, gui, model;
+			let container, progressBarDiv;
+			let camera, scene, renderer, controls, gui, model;
 			
 			function init() {
 
@@ -71,11 +72,24 @@ the .ldr file.
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.enableDamping = true;
 
+				window.addEventListener( 'resize', onWindowResize );
+
+				progressBarDiv = document.createElement( 'div' );
+				progressBarDiv.style.fontSize = '3em';
+				progressBarDiv.style.display = 'block';
+				progressBarDiv.style.position = 'absolute';
+				progressBarDiv.style.top = '50%';
+				progressBarDiv.style.width = '100%';
+				progressBarDiv.style.textAlign = 'center';
+
 				reloadObject();
 
 			}
 
 			function reloadObject() {
+
+				updateProgressBar( 0 );
+				showProgressBar();
 
 				const lDrawLoader = new LDrawLoader();
         		const loader = new LDrawLoader();
@@ -97,7 +111,18 @@ the .ldr file.
 						controls.position0.set( - 2.3, 1, 2 ).multiplyScalar( radius ).add( controls.target0 );
 						controls.reset();
 
-					}, false, onError );
+						hideProgressBar();
+
+					}, onProgress, onError );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
 			}
 
 			function animate() {
@@ -113,13 +138,43 @@ the .ldr file.
 
 			}
 
+			function onProgress( xhr ) {
+
+				if ( xhr.lengthComputable ) {
+
+					updateProgressBar( xhr.loaded / xhr.total );
+
+				}
+
+			}
+
 			function onError( error ) {
 
+				console.log( message );
 				console.error( error );
 
 			}
 
+			function showProgressBar() {
+
+				document.body.appendChild( progressBarDiv );
+
+			}
+
+			function hideProgressBar() {
+
+				document.body.removeChild( progressBarDiv );
+
+			}
+
+			function updateProgressBar( fraction ) {
+
+				progressBarDiv.innerText = Math.round( fraction * 100, 2 ) + '%';
+
+			}
+
 			init();
+
 
 		</script>
 
