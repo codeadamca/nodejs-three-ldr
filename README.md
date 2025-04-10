@@ -14,6 +14,12 @@ npx vite --host
 
 3. Use the example for from the [LDrawLoader](https://threejs.org/docs/#examples/en/loaders/LDrawLoader) documentation.
 
+4. Create a `dist` version by running:
+
+```
+npx vite build
+```
+
 > [!NOTE]
 > This repo is a work in progress.
 
